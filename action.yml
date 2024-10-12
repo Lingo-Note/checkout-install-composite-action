@@ -1,0 +1,41 @@
+name: Checkout-install
+description: >
+  Checkout a project's source code and install Node.js and its 
+  dependencies.
+inputs:
+  checkout-path:
+    description: >
+      The file path to checkout the project's source code to
+      (https://github.com/actions/checkout). Defaults to the worker's 
+      current working directory.
+    required: false
+    default: .
+  node-version-file:
+    description: >
+      The file containing the Node.js version to install
+      (https://github.com/actions/setup-node). Defaults to the 
+      project's "package.json".
+    required: false
+    default: package.json
+  packman-cache:
+    description: >
+      The package manager to use for installing/caching the 
+      project's dependencies (https://github.com/actions/setup-node). 
+      Defaults to "npm".
+    required: false
+    default:
+runs:
+  using: composite
+  steps:
+    - name: Checkout source code
+      uses: actions/checkout@v4.2.0
+      with:
+        path: ${{ inputs.checkout-path }}
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: ${{ inputs.node-version-file }}
+        cache: ${{ inputs.packman-cache }}
+    - name: Install deps
+      run: npm ci
+
