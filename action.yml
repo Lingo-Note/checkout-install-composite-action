@@ -38,4 +38,5 @@ runs:
         cache: ${{ inputs.packman-cache }}
     - name: Install deps
       run: npm ci
+      shell: bash
 
