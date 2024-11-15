@@ -23,7 +23,7 @@ inputs:
       project's dependencies (https://github.com/actions/setup-node). 
       Defaults to "npm".
     required: false
-    default:
+    default: npm
 runs:
   using: composite
   steps:
